@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nama\": \"Jane Doe\",\n  \"tanggal_lahir\": \"2000-12-01\"\n}",
+					"raw": "{\n  \"nama\": \"Ashford\",\n  \"tanggal_lahir\": \"2000-12-01\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -86,18 +86,34 @@
 			"response": []
 		},
 		{
-			"name": "[POST] Create bulk patients",
+			"name": "[POST] Create bulk patients with form data",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "[\n  {\n    \"nama\": \"Eko\",\n    \"tanggal_lahir\": \"1990-01-01\"\n  },\n  {\n    \"nama\": \"Abdullah\",\n    \"tanggal_lahir\": \"1992-05-20\"\n  }\n]",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "0[nama]",
+							"value": "Aditya Arnori",
+							"type": "text"
+						},
+						{
+							"key": "0[tanggal_lahir]",
+							"value": "2003-06-10",
+							"type": "text"
+						},
+						{
+							"key": "1[nama]",
+							"value": "Baihaqqi",
+							"type": "text"
+						},
+						{
+							"key": "1[tanggal_lahir]",
+							"value": "2004-05-02",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8000/api/pasien",
