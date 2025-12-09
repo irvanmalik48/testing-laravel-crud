@@ -69,7 +69,7 @@ class PasienController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '[CREATE-BULK] ' . $isBulk ? count($inputs) . ' entries created. Operation successful.' : '[CREATE-SINGLE] Operation successful.',
+            'message' => $isBulk ? '[CREATE-BULK] ' . count($inputs) . ' entries created. Operation successful.' : '[CREATE-SINGLE] Operation successful.',
             'data' => $isBulk ? $formattedResponse : $formattedResponse[0]
         ], 201);
     }
