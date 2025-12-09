@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "32358ae9-00c7-43fd-a15b-edbba462a43b",
+		"name": "Laravel Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26451098"
+	},
+	"item": [
+		{
+			"name": "[GET-ALL] Get all patients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/pasien",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pasien"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] Get patient by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/pasien/e10d7ef4-324b-4126-9332-f286ad09aefc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pasien",
+						"e10d7ef4-324b-4126-9332-f286ad09aefc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] Create single patient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nama\": \"Jane Doe\",\n  \"tanggal_lahir\": \"2000-12-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/pasien",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pasien"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] Create bulk patients",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"nama\": \"Eko\",\n    \"tanggal_lahir\": \"1990-01-01\"\n  },\n  {\n    \"nama\": \"Abdullah\",\n    \"tanggal_lahir\": \"1992-05-20\"\n  }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/pasien",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pasien"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
