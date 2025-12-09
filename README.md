@@ -26,10 +26,12 @@ php artisan serve
 1. Create single:
 
 ![Create single](screenshots/create_single.png)
+![Create single (form data)](screenshots/create_single_formdata.png)
 
 2. Create bulk:
 
 ![Create bulk](screenshots/create_bulk.png)
+![Create bulk (form data)](screenshots/create_bulk_formdata.png)
 
 3. Get by ID:
 
@@ -42,6 +44,7 @@ php artisan serve
 5. Update by ID:
 
 ![Update by ID](screenshots/update_by_id.png)
+![Update by ID (form data)](screenshots/update_by_id_formdata.png)
 
 6. Delete by ID:
 
