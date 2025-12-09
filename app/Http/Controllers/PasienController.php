@@ -27,37 +27,51 @@ class PasienController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-        ]);
+        $isBulk = array_is_list($request->all());
 
-        $now = now();
-        $id = (string) Str::uuid();
-
-        $data = [
-            'id' => $id,
-            'nama' => $validated['nama'],
-            'tanggal_lahir' => $validated['tanggal_lahir'],
-            'created_at' => $now,
-            'updated_at' => $now,
-        ];
-
-        $res = DB::table('pasien')->insert($data);
-
-        if (!$res) {
-            return response()->json([
-                'status' => 'error',
-                'message' => '[ERR] Operation failed at [CREATE].',
-            ], 500);
+        if ($isBulk) {
+            $rules = [
+                '*.nama' => 'required|string|max:255',
+                '*.tanggal_lahir' => 'required|date',
+            ];
+        } else {
+            $rules = [
+                'nama' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+            ];
         }
+
+        $validated = $request->validate($rules);
+
+        $inputs = $isBulk ? $validated : [$validated];
+        
+        $now = now();
+        $recordsToInsert = [];
+        $formattedResponse = [];
+
+        foreach ($inputs as $input) {
+            $id = (string) Str::uuid();
+            
+            $row = [
+                'id' => $id,
+                'nama' => $input['nama'],
+                'tanggal_lahir' => $input['tanggal_lahir'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+
+            $recordsToInsert[] = $row;
+            
+            $formattedResponse[] = $this->formatPasien((object)$row);
+        }
+
+        DB::table('pasien')->insert($recordsToInsert);
 
         return response()->json([
             'status' => 'success',
-            'message' => '[CREATE] Operation successful.',
-            'data' => $this->formatPasien((object)$data)
+            'message' => '[CREATE-BULK] ' . $isBulk ? count($inputs) . ' entries created. Operation successful.' : '[CREATE-SINGLE] Operation successful.',
+            'data' => $isBulk ? $formattedResponse : $formattedResponse[0]
         ], 201);
-
     }
 
     public function show(string $id): JsonResponse
