@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -27,21 +28,26 @@ class PasienController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $isBulk = array_is_list($request->all());
+        $cleanData = $request->except(['_token', '_method']);
+
+        $isBulk = !empty($cleanData) && array_is_list($cleanData);
 
         if ($isBulk) {
             $rules = [
                 '*.nama' => 'required|string|max:255',
                 '*.tanggal_lahir' => 'required|date',
             ];
+
+            $validator = Validator::make($cleanData, $rules);
+            $validated = $validator->validate();
         } else {
             $rules = [
                 'nama' => 'required|string|max:255',
                 'tanggal_lahir' => 'required|date',
             ];
+            
+            $validated = $request->validate($rules);
         }
-
-        $validated = $request->validate($rules);
 
         $inputs = $isBulk ? $validated : [$validated];
         
